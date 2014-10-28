@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>    //srand,rand函数
+#include <math.h>
+#include <time.h>
+double randN()
+{
+
+	double j,k;
+	double x,y;
+	double z;
+	j=(int)(10000.0*rand()/(RAND_MAX+0));//从0到10000之间的随机数
+	k=(int)(10000.0*rand()/(RAND_MAX+0));//从0到10000之间的随机数
+	x=j/10000; //0到1之间的随机数，5位有效数字
+	y=k/10000;   //0到1之间的随机数，5位有效数字
+    //x = (double)(rand())/(double)RAND_MAX;
+    //y = (double)(rand())/(double)RAND_MAX;
+    
+	z=sqrt(-2.0*log(x))*cos(2*M_PI*y);
+	return z;
+}
+
+int main ( ){ //int argc, char* argv[]
+	int N=1000;
+	FILE *fdata;
+
+	fdata=fopen("/Users/zq/Desktop/data.txt","w");
+	double i=0;
+	for(i;i<N;i++)
+	{
+		double randnormal = randN();
+        
+		printf("%f\n",randnormal);
+		fprintf(fdata,"%f\n",randnormal);
+		fflush(fdata);  //将缓冲区中的内容写入文件
+	}
+	fclose(fdata);
+    
+    return 0;
+}
